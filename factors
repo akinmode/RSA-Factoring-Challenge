@@ -9,10 +9,9 @@ def factorize(num):
 
     if num < 2:
         return
-    else:
-        while num % multifactor:
-            multifactor += 1
-        print("{:.0f}={:.0f}*{:.0f}".format(num, num / multifactor, multifactor))
+    while num % multifactor:
+        multifactor += 1
+    print("{:.0f}={:.0f}*{:.0f}".format(num, num / multifactor, multifactor))
 
 if len(argv) != 2:
     exit()
