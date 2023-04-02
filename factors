@@ -19,9 +19,10 @@ if len(argv) != 2:
 else:
     try:
         with open(argv[1]) as file:
-            rows = file.read().split('\n')
-            for num in rows:
-                if num != "":
-                    factorize(int(num))
-    except Exception as e:
-        print(str(e))
+            row = file.readline()
+            while row != "":
+                num = row.split('\n')[0]
+                factorize(int(num))
+                row = file.readline()
+    except Exception:
+        pass
