@@ -10,7 +10,7 @@ def factorize(num):
     if num < 2:
         return
     while multifactor <= num / 2:
-        if num % multifactor == 0 and multifactor <= num /multifactor:
+        if num % multifactor == 0 and multifactor <= num / multifactor:
             print("{:.0f}={:.0f}*{:.0f}".format(num, num / multifactor, multifactor))
         multifactor += 1
 
