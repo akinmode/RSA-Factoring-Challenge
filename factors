@@ -10,21 +10,25 @@ def factorize(num):
 
     if num < 2:
         return
-    while num % mul:
-        mul += 1
-    f1 = num / mul if (num / mul) > mul else mul
-    f2 = num / mul if (num / mul) < mul else mul
-    print("{:.0f}={:.0f}*{:.0f}".format(num, f1, f2))
+    # Find factors using trial division
+    for divisor in range(2, int(num**0.5) + 1):
+        quotient, remainder = divmod(num, divisor)
+        if remainder == 0:
+            print(f"{num}={divisor}*{quotient}")
+            return
 
 if len(argv) != 2:
     exit(f"Wrong usage: {argv[0]} <file>")
 else:
     try:
         with open(argv[1]) as file:
-            row = file.readline()
-            while row != "":
-                num = row.split('\n')[0]
-                factorize(int(num))
-                row = file.readline()
-    except Exception:
-        pass
+            for line in file:
+                num = line.strip()  # Remove leading/trailing whitespace
+                try:
+                    factorize(int(num))
+                except ValueError:
+                    print(f"Illegal value: {num}")
+    except FileNotFoundError:
+        exit(f"File not found: {argv[1]}")
+    except PermissionError:
+        exit(f"Permission denied: {argv[1]}")
