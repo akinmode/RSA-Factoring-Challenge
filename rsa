@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+from sys import argv
+
+
+def isPrime(x):
+    """
+        Check if a number is prime
+    """
+    for i in range(2, int(x/2)+1):
+        if (x % i) == 0:
+            return False
+            break
+    return True
+
+def factorize(num):
+    """
+        Factorize as many numbers as possible into a product of two smaller numbers.
+    """
+    multifactor = 2
+
+    if num < 2:
+        return
+    while num % multifactor:
+        multifactor += 1
+    if isPrime(multifactor) == True and isPrime(num / multifactor) == True:
+        f1 = num / multifactor if (num / multifactor) > multifactor else multifactor
+        f2 = num / multifactor if (num / multifactor) < multifactor else multifactor
+        print("{:.0f}={:.0f}*{:.0f}".format(num, f1, f2))
+
+if len(argv) != 2:
+    exit(f"Wrong usage: {argv[0]} <file>")
+else:
+    try:
+        with open(argv[1]) as file:
+            row = file.readline()
+            while row != "":
+                num = row.split('\n')[0]
+                factorize(int(num))
+                row = file.readline()
+    except Exception:
+        pass
