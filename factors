@@ -1,33 +1,11 @@
-#!/usr/bin/python3
-from sys import argv
-
-
-def factorize(num):
-    """
-        Factorize as many numbers as possible into a product of two smaller numbers.
-    """
-    mul = 2
-
-    if num < 2:
-        return
-    for divisor in range(2, int(num**0.5) + 1):
-        quotient, remainder = divmod(num, divisor)
-        if remainder == 0:
-            print(f"{num}={divisor}*{quotient}")
-            return
-
-if len(argv) != 2:
-    exit(f"Wrong usage: {argv[0]} <file>")
-else:
-    try:
-        with open(argv[1]) as file:
-            for line in file:
-                num = line.strip()
-                try:
-                    factorize(int(num))
-                except ValueError:
-                    print(f"Illegal value: {num}")
-    except FileNotFoundError:
-        exit(f"File not found: {argv[1]}")
-    except PermissionError:
-        exit(f"Permission denied: {argv[1]}")
+#!/usr/bin/bash
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 <file>"
+	exit 1
+fi
+FILE=$1
+while read NUMBERS;
+do
+	factors=($(factor $NUMBERS))
+	echo "$NUMBERS=$(($NUMBERS/${factors[1]}))*${factors[1]}"
+done < $FILE
