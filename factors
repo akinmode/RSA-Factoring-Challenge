@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+from sys import argv
+
+
+def factorize(num):
+    """
+        Factorize as many numbers as possible into a product of two smaller numbers.
+    """
+    mul = 2
+
+    if num < 2:
+        return
+    while num % mul:
+        mul += 1
+    f1 = num / mul if (num / mul) > mul else mul
+    f2 = num / mul if (num / mul) < mul else mul
+    print("{:.0f}={:.0f}*{:.0f}".format(num, f1, f2))
+
+if len(argv) != 2:
+    exit(f"Wrong usage: {argv[0]} <file>")
+else:
+    try:
+        with open(argv[1]) as file:
+            row = file.readline()
+            while row != "":
+                num = row.split('\n')[0]
+                factorize(int(num))
+                row = file.readline()
+    except Exception:
+        pass
