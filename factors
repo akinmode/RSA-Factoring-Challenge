@@ -10,7 +10,6 @@ def factorize(num):
 
     if num < 2:
         return
-    # Find factors using trial division
     for divisor in range(2, int(num**0.5) + 1):
         quotient, remainder = divmod(num, divisor)
         if remainder == 0:
@@ -23,7 +22,7 @@ else:
     try:
         with open(argv[1]) as file:
             for line in file:
-                num = line.strip()  # Remove leading/trailing whitespace
+                num = line.strip()
                 try:
                     factorize(int(num))
                 except ValueError:
